@@ -17,30 +17,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
+	
+	wayPointFields = [[NSMutableArray alloc] init];
+	
+	UIBarButtonItem *space = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
+	UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addRow:)] autorelease];
+	UIBarButtonItem *removePinButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"remove.png"] style:UIBarButtonItemStylePlain target:self action:@selector(removeRow:)] autorelease];
+	self.toolbarItems = [NSArray arrayWithObjects:space, addButton, removePinButton, nil];
+	[self.navigationController setToolbarHidden:NO animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-	
 }
 
 - (void)done:(id)sender {
@@ -51,6 +39,19 @@
 		[endField resignFirstResponder];
 	}
 	[self.navigationItem setRightBarButtonItem:nil animated:YES];
+}
+
+- (void)addRow:(id)sender {
+	[wayPointFields addObject:[[[UITextField alloc] initWithFrame:CGRectMake(66.0, 0.0, 236.0, 44.0)] autorelease]];
+	[self.tableView reloadData];
+}
+
+- (void)removeRow:(id)sender {
+	if ([wayPointFields count] <= 0) {
+		return;
+	}
+	[wayPointFields removeLastObject];
+	[self.tableView reloadData];
 }
 
 #pragma mark UITextFieldDelegate Methods
@@ -82,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
-		return 2;
+		return 2 + [wayPointFields count];
 	} else if (section == 1) {
 		return 1;
 	} else {
@@ -102,11 +103,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *CellIdentifier = [NSString stringWithFormat:@"Cell%d%d", indexPath.section, indexPath.row];
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+    UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     
 	if (indexPath.section == 0 && indexPath.row == 0) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -140,10 +137,10 @@
 		[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 		[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 		
-		[inputField setText:[NSString stringWithUTF8String:"新宿西口"]];
+		[inputField setText:[NSString stringWithUTF8String:"セルリアンタワー"]];
 		
 		startField = inputField;
-	} else if (indexPath.section == 0 && indexPath.row == 1) {
+	} else if (indexPath.section == 0 && indexPath.row == 1 + [wayPointFields count]) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		
@@ -178,6 +175,36 @@
 		[inputField setText:[NSString stringWithUTF8String:"東京ディズニーランド"]];
 		
 		endField = inputField;
+	} else if (indexPath.section == 0) {
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		
+		UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 13.0f, 40.0f, 20.0f)];
+		[cell addSubview:textLabel];
+		[textLabel release];
+		textLabel.text = NSLocalizedString(@"via:", nil);
+		textLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+		textLabel.textAlignment = UITextAlignmentRight;
+		textLabel.textColor = [UIColor lightGrayColor];
+		
+		UITextField *inputField = [wayPointFields objectAtIndex:indexPath.row - 1];
+		inputField.delegate = self;
+		[cell addSubview:inputField];
+		
+		[inputField setBorderStyle:UITextBorderStyleNone];
+		[inputField setAdjustsFontSizeToFitWidth:NO];
+		[inputField setClearButtonMode:UITextFieldViewModeWhileEditing];
+		[inputField setClearsOnBeginEditing:NO];
+		[inputField setPlaceholder:nil];
+		[inputField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+		[inputField setAutocorrectionType:UITextAutocorrectionTypeNo];
+		[inputField setEnablesReturnKeyAutomatically:YES];
+		[inputField setKeyboardType:UIKeyboardTypeDefault];
+		[inputField setReturnKeyType:UIReturnKeyDone];
+		[inputField setEnablesReturnKeyAutomatically:YES];
+		
+		[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+		[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 	} else if (indexPath.section == 1 && indexPath.row == 0) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -187,7 +214,7 @@
 							  NSLocalizedString(@"Train", nil), 
 							  NSLocalizedString(@"Walking", nil), nil]];
 		[travelModeSegment setFrame:CGRectMake(9.0f, 0.0f, 302.0f, 45.0f)];
-		[travelModeSegment setSelectedSegmentIndex:0];
+		travelModeSegment.selectedSegmentIndex = 0;
 		[cell addSubview:travelModeSegment];
 		[travelModeSegment release];
 	} else {
@@ -195,19 +222,26 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		cell.textLabel.text = NSLocalizedString(@"Search", nil);
 		cell.textLabel.textAlignment = UITextAlignmentCenter;
-		cell.textLabel.textColor = [UIColor blueColor];
+		cell.textLabel.textColor = [UIColor colorWithRed:0.20 green:0.30 blue:0.49 alpha:1.0];
 	}
-
+	
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	MapDirectionsViewController *controller = [[MapDirectionsViewController alloc] init];
-	controller.startPoint = startField.text;
-	controller.endPoint = endField.text;
-	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	if (indexPath.section == 2 && indexPath.row == 0) {
+		MapDirectionsViewController *controller = [[MapDirectionsViewController alloc] init];
+		controller.startPoint = startField.text;
+		controller.endPoint = endField.text;
+		NSMutableArray *wayPoints = [NSMutableArray arrayWithCapacity:[wayPointFields count]];
+		for (UITextField *pointField in wayPointFields) {
+			[wayPoints addObject:pointField.text];
+		}
+		controller.wayPoints = wayPoints;
+		[self.navigationController pushViewController:controller animated:YES];
+		[controller release];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
 }
 
 @end

@@ -9,6 +9,7 @@
 @interface RootViewController : UITableViewController<UITextFieldDelegate> {
 	UITextField *startField;
 	UITextField *endField;
+	NSMutableArray *wayPointFields;
 	UISegmentedControl *travelModeSegment;
 }
 

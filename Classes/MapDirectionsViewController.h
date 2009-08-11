@@ -18,10 +18,12 @@
 	UICGDirections *diretions;
 	NSString *startPoint;
 	NSString *endPoint;
+	NSArray *wayPoints;
 }
 
 @property (nonatomic, retain) NSString *startPoint;
 @property (nonatomic, retain) NSString *endPoint;
+@property (nonatomic, retain) NSArray *wayPoints;
 
 - (void)update;
 

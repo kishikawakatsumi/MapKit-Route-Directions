@@ -32,7 +32,12 @@
 		CLLocationDegrees longitude = [[coordinates objectAtIndex:1] doubleValue];
 		location = [[[CLLocation alloc] initWithLatitude:latitude longitude:longitude] autorelease];
 		
-		polylineIndex = [[dictionary objectForKey:@"polylineIndex"] integerValue];
+		id index = [dictionary objectForKey:@"polylineIndex"];
+		if (index == [NSNull null]) {
+			polylineIndex = -1;
+		} else {
+			polylineIndex = [index integerValue];
+		}
 		descriptionHtml = [dictionary objectForKey:@"descriptionHtml"];
 		distance = [dictionary objectForKey:@"Distance"];
 		duration = [dictionary objectForKey:@"Duration"];

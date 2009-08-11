@@ -7,16 +7,21 @@
 //
 
 #import "UICGDirections.h"
+#import "UICGRoute.h"
 #import "JSON.h"
 
 static UICGDirections *sharedDirections;
 
 @implementation UICGDirections
 
+@synthesize routes;
+@synthesize geocodes;
 @synthesize delegate;
 @synthesize polyline;
 @synthesize distance;
 @synthesize duration;
+@synthesize status;
+@synthesize isInitialized;
 
 + (UICGDirections *)sharedDirections {
 	if (!sharedDirections) {
@@ -36,15 +41,31 @@ static UICGDirections *sharedDirections;
 
 - (void)dealloc {
 	[googleMapsAPI release];
+	[routes release];
+	[geocodes release];
+	[polyline release];
+	[distance release];
+	[duration release];
+	[status release];
 	[super dealloc];
+}
+
+- (void)makeAvailable {
+	[googleMapsAPI makeAvailable];
 }
 
 - (void)goolgeMapsAPI:(UICGoogleMapsAPI *)goolgeMapsAPI didGetObject:(NSObject *)object {
 	NSDictionary *dictionary = (NSDictionary *)object;
+	NSArray *routeDics = [dictionary objectForKey:@"routes"];
+	routes = [[NSMutableArray alloc] initWithCapacity:[routeDics count]];
+	for (NSDictionary *routeDic in routeDics) {
+		[(NSMutableArray *)routes addObject:[UICGRoute routeWithDictionary:routeDic]];
+	}
+	self.geocodes = [dictionary objectForKey:@"geocodes"];
 	self.polyline = [UICGPolyline polylineWithDictionary:[dictionary objectForKey:@"polyline"]];
 	self.distance = [dictionary objectForKey:@"distance"];
 	self.duration = [dictionary objectForKey:@"duration"];
-	
+	self.status = [dictionary objectForKey:@"status"];
 	
 	if ([self.delegate respondsToSelector:@selector(directionsDidUpdateDirections:)]) {
 		[self.delegate directionsDidUpdateDirections:self];
@@ -58,14 +79,16 @@ static UICGDirections *sharedDirections;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	NSLog(@"UICGDirections/webViewDidFinishLoad:");
+	isInitialized = YES;
 	if ([self.delegate respondsToSelector:@selector(directionsDidFinishInitialize:)]) {
 		[self.delegate directionsDidFinishInitialize:self];
 	}
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	NSLog(@"UICGDirections/webView:didFailLoadWithError:");
+	if ([self.delegate respondsToSelector:@selector(directions:didFailInitializeWithError:)]) {
+		[self.delegate directions:self didFailInitializeWithError:error];
+	}
 }
 
 - (void)loadWithQuery:(NSString *)query options:(UICGDirectionsOptions *)options {
@@ -75,43 +98,32 @@ static UICGDirections *sharedDirections;
 
 - (void)loadWithStartPoint:(NSString *)startPoint endPoint:(NSString *)endPoint options:(UICGDirectionsOptions *)options {
 	[googleMapsAPI stringByEvaluatingJavaScriptFromString:
-	 [NSString stringWithFormat:@"loadDirections('%@', '%@', 'ja_JP')", startPoint, endPoint, [options JSONRepresentation]]];
+	 [NSString stringWithFormat:@"loadDirections('%@', '%@', %@)", startPoint, endPoint, [options JSONRepresentation]]];
 }
 
 - (void)loadFromWaypoints:(NSArray *)waypoints options:(UICGDirectionsOptions *)options {
-	
+	[googleMapsAPI stringByEvaluatingJavaScriptFromString:
+	 [NSString stringWithFormat:@"loadFromWaypoints(%@, %@)", [waypoints JSONRepresentation], [options JSONRepresentation]]];
 }
 
 - (void)clear {
 	
 }
 
-- (NSDictionary *)status {
-	return nil;
-}
-
 - (NSInteger)numberOfRoutes {
-	return 0;
+	return [routes count];
 }
 
 - (UICGRoute *)routeAtIndex:(NSInteger)index {
-	return nil;
+	return [routes objectAtIndex:index];
 }
 
 - (NSInteger)numberOfGeocodes {
-	return 0;
+	return [geocodes count];
 }
 
 - (NSDictionary *)geocodeAtIndex:(NSInteger)index {
-	return nil;
-}
-
-- (NSDictionary *)distance {
-	return nil;
-}
-
-- (NSDictionary *)duration {
-	return nil;
+	return [geocodes objectAtIndex:index];;
 }
 
 @end

@@ -16,7 +16,6 @@
 - (void)goolgeMapsAPI:(UICGoogleMapsAPI *)goolgeMapsAPI didFailWithMessage:(NSString *)message;
 @end
 
-@interface UICGoogleMapsAPI : UIWebView<UIWebViewDelegate> {
-}
-
+@interface UICGoogleMapsAPI : UIWebView<UIWebViewDelegate> 
+- (void)makeAvailable;
 @end

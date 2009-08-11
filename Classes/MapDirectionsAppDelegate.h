@@ -7,7 +7,6 @@
 //
 
 @interface MapDirectionsAppDelegate : NSObject <UIApplicationDelegate> {
-    
     UIWindow *window;
     UINavigationController *navigationController;
 }

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef enum UICGTravelModes {
-	G_TRAVEL_MODE_DRIVING,
-	G_TRAVEL_MODE_WALKING
+	UICGTravelModeDriving, // G_TRAVEL_MODE_DRIVING
+	UICGTravelModeWalking  // G_TRAVEL_MODE_WALKING
 } UICGTravelModes;
 
 @interface UICGDirectionsOptions : NSObject {
@@ -21,5 +21,12 @@ typedef enum UICGTravelModes {
 	BOOL getSteps;
 	BOOL preserveViewport;
 }
+
+@property (nonatomic, retain) NSLocale *locale;
+@property (nonatomic) UICGTravelModes travelMode;
+@property (nonatomic) BOOL avoidHighways;
+@property (nonatomic) BOOL getPolyline;
+@property (nonatomic) BOOL getSteps;
+@property (nonatomic) BOOL preserveViewport;
 
 @end
