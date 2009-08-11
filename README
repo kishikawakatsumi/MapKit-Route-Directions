@@ -3,6 +3,13 @@ MapKit-Route-Directions (iPhone Sample Program)
 This is MapKit extentions.
 Includes Google Maps API wrappers and drawing polylines over map view.
 
+See Also...
+Drawing polyines or routes on a MKMapView (Using Map Kit on the iPhone)
+http://spitzkoff.com/craig/?p=65
+
+Using MKAnnotation, MKPinAnnotationView and creating a custom MKAnnotationView in an MKMapView
+http://spitzkoff.com/craig/?p=81
+
 * Author 
 KISHIKAWA Katsumi
 http://d.hatena.ne.jp/KishikawaKatsumi/ (in Japanese)
