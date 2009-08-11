@@ -1,0 +1,16 @@
+MapKit-Route-Directions (iPhone Sample Program)
+
+This is MapKit extentions.
+Includes Google Maps API wrappers and drawing polylines over map view.
+
+* Author 
+KISHIKAWA Katsumi
+http://d.hatena.ne.jp/KishikawaKatsumi/ (in Japanese)
+
+* License
+The new BSD license
+
+* 3rd parties
+JSON Framework
+-----------------
+http://code.google.com/p/json-framework/
