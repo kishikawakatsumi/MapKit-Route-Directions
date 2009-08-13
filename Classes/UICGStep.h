@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface UICGStep : NSObject {
-	NSDictionary *dictionary;
+	NSDictionary *dictionaryRepresentation;
 	CLLocation *location;
 	NSInteger polylineIndex;
 	NSString *descriptionHtml;
@@ -18,13 +18,14 @@
 	NSDictionary *duration;
 }
 
-@property (nonatomic, retain, readonly)CLLocation *location;
+@property (nonatomic, retain, readonly) NSDictionary *dictionaryRepresentation;
+@property (nonatomic, retain, readonly) CLLocation *location;
 @property (nonatomic, readonly) NSInteger polylineIndex;
 @property (nonatomic, retain, readonly) NSString *descriptionHtml;
 @property (nonatomic, retain, readonly) NSDictionary *distance;
 @property (nonatomic, retain, readonly) NSDictionary *duration;
 
-+ (UICGStep *)stepWithDictionary:(NSDictionary *)dic;
-- (id)initWithDictionary:(NSDictionary *)dic;
++ (UICGStep *)stepWithDictionaryRepresentation:(NSDictionary *)dictionary;
+- (id)initWithDictionaryRepresentation:(NSDictionary *)dictionary;
 
 @end

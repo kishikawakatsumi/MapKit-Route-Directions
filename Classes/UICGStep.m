@@ -10,43 +10,44 @@
 
 @implementation UICGStep
 
+@synthesize dictionaryRepresentation;
 @synthesize location;
 @synthesize polylineIndex;
 @synthesize descriptionHtml;
 @synthesize distance;
 @synthesize duration;
 
-+ (UICGStep *)stepWithDictionary:(NSDictionary *)dic {
-	UICGStep *step = [[UICGStep alloc] initWithDictionary:dic];
++ (UICGStep *)stepWithDictionaryRepresentation:(NSDictionary *)dictionary {
+	UICGStep *step = [[UICGStep alloc] initWithDictionaryRepresentation:dictionary];
 	return [step autorelease];
 }
 
-- (id)initWithDictionary:(NSDictionary *)dic {
+- (id)initWithDictionaryRepresentation:(NSDictionary *)dictionary {
 	self = [super init];
 	if (self != nil) {
-		dictionary = [dic retain];
+		dictionaryRepresentation = [dictionary retain];
 		
-		NSDictionary *point = [dictionary objectForKey:@"Point"];
+		NSDictionary *point = [dictionaryRepresentation objectForKey:@"Point"];
 		NSArray *coordinates = [point objectForKey:@"coordinates"];
 		CLLocationDegrees latitude  = [[coordinates objectAtIndex:0] doubleValue];
 		CLLocationDegrees longitude = [[coordinates objectAtIndex:1] doubleValue];
 		location = [[[CLLocation alloc] initWithLatitude:latitude longitude:longitude] autorelease];
 		
-		id index = [dictionary objectForKey:@"polylineIndex"];
+		id index = [dictionaryRepresentation objectForKey:@"polylineIndex"];
 		if (index == [NSNull null]) {
 			polylineIndex = -1;
 		} else {
 			polylineIndex = [index integerValue];
 		}
-		descriptionHtml = [dictionary objectForKey:@"descriptionHtml"];
-		distance = [dictionary objectForKey:@"Distance"];
-		duration = [dictionary objectForKey:@"Duration"];
+		descriptionHtml = [dictionaryRepresentation objectForKey:@"descriptionHtml"];
+		distance = [dictionaryRepresentation objectForKey:@"Distance"];
+		duration = [dictionaryRepresentation objectForKey:@"Duration"];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[dictionary release];
+	[dictionaryRepresentation release];
 	[location release];
 	[descriptionHtml release];
 	[distance release];

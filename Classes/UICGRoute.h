@@ -11,7 +11,7 @@
 #import "UICGStep.h"
 
 @interface UICGRoute : NSObject {
-	NSDictionary *dictionary;
+	NSDictionary *dictionaryRepresentation;
 	NSInteger numerOfSteps;
 	NSArray *steps;
 	NSDictionary *distance;
@@ -23,6 +23,7 @@
 	NSInteger polylineEndIndex;
 }
 
+@property (nonatomic, retain readonly) NSDictionary *dictionaryRepresentation;
 @property (nonatomic, readonly) NSInteger numerOfSteps;
 @property (nonatomic, retain, readonly) NSArray *steps;
 @property (nonatomic, retain, readonly) NSDictionary *distance;
@@ -33,8 +34,8 @@
 @property (nonatomic, retain, readonly) CLLocation *endLocation;
 @property (nonatomic, assign, readonly) NSInteger polylineEndIndex;
 
-+ (UICGRoute *)routeWithDictionary:(NSDictionary *)dic;
-- (id)initWithDictionary:(NSDictionary *)dic;
++ (UICGRoute *)routeWithDictionaryRepresentation:(NSDictionary *)dictionary;
+- (id)initWithDictionaryRepresentation:(NSDictionary *)dictionary;
 - (UICGStep *)stepAtIndex:(NSInteger)index;
 
 @end

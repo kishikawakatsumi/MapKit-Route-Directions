@@ -10,6 +10,7 @@
 
 @implementation UICGRoute
 
+@synthesize dictionaryRepresentation;
 @synthesize numerOfSteps;
 @synthesize steps;
 @synthesize distance;
@@ -20,25 +21,25 @@
 @synthesize endLocation;
 @synthesize polylineEndIndex;
 
-+ (UICGRoute *)routeWithDictionary:(NSDictionary *)dic {
-	UICGRoute *route = [[UICGRoute alloc] initWithDictionary:dic];
++ (UICGRoute *)routeWithDictionaryRepresentation:(NSDictionary *)dictionary {
+	UICGRoute *route = [[UICGRoute alloc] initWithDictionaryRepresentation:dictionary];
 	return [route autorelease];
 }
 
-- (id)initWithDictionary:(NSDictionary *)dic {
+- (id)initWithDictionaryRepresentation:(NSDictionary *)dictionary {
 	self = [super init];
 	if (self != nil) {
-		dictionary = [dic retain];
-		NSDictionary *k = [dictionary objectForKey:@"k"];
+		dictionaryRepresentation = [dictionary retain];
+		NSDictionary *k = [dictionaryRepresentation objectForKey:@"k"];
 		NSArray *stepDics = [k objectForKey:@"Steps"];
 		numerOfSteps = [stepDics count];
 		steps = [[NSMutableArray alloc] initWithCapacity:numerOfSteps];
 		for (NSDictionary *stepDic in stepDics) {
-			[(NSMutableArray *)steps addObject:[UICGStep stepWithDictionary:stepDic]];
+			[(NSMutableArray *)steps addObject:[UICGStep stepWithDictionaryRepresentation:stepDic]];
 		}
 		
-		endGeocode = [dictionary objectForKey:@"MJ"];
-		startGeocode = [dictionary objectForKey:@"dT"];
+		endGeocode = [dictionaryRepresentation objectForKey:@"MJ"];
+		startGeocode = [dictionaryRepresentation objectForKey:@"dT"];
 		
 		distance = [k objectForKey:@"Distance"];
 		duration = [k objectForKey:@"Duration"];
@@ -54,7 +55,7 @@
 }
 
 - (void)dealloc {
-	[dictionary release];
+	[dictionaryRepresentation release];
 	[steps release];
 	[distance release];
 	[duration release];

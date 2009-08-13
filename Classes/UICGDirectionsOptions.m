@@ -20,7 +20,7 @@
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		locale = [[NSLocale currentLocale] retain];
+		locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"];
 		travelMode = UICGTravelModeDriving;
 		avoidHighways = NO;
 		getPolyline = YES;

@@ -10,21 +10,22 @@
 
 @implementation UICGPolyline
 
+@synthesize dictionaryRepresentation;
 @synthesize routePoints;
 @synthesize vertexCount;
 @synthesize length;
 
-+ (UICGPolyline *)polylineWithDictionary:(NSDictionary *)dic {
-	UICGPolyline *polyline = [[UICGPolyline alloc] initWithDictionary:dic];
++ (UICGPolyline *)polylineWithDictionaryRepresentation:(NSDictionary *)dictionary {
+	UICGPolyline *polyline = [[UICGPolyline alloc] initWithDictionaryRepresentation:dictionary];
 	return [polyline autorelease];
 }
 
-- (id)initWithDictionary:(NSDictionary *)dic {
+- (id)initWithDictionaryRepresentation:(NSDictionary *)dictionary {
 	self = [super init];
 	if (self != nil) {
-		dictionary = [dic retain];
+		dictionaryRepresentation = [dictionary retain];
 		
-		vertices = [[dictionary objectForKey:@"j"] retain];
+		vertices = [[dictionaryRepresentation objectForKey:@"j"] retain];
 		vertexCount = [vertices count];
 		routePoints = [NSMutableArray arrayWithCapacity:vertexCount];
 		for (NSDictionary *vertex in vertices) {
@@ -38,7 +39,7 @@
 }
 
 - (void)dealloc {
-	[dictionary release];
+	[dictionaryRepresentation release];
 	[vertices release];
 	[super dealloc];
 }
