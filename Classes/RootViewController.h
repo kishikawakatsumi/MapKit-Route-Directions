@@ -11,6 +11,8 @@
 	UITextField *endField;
 	NSMutableArray *wayPointFields;
 	UISegmentedControl *travelModeSegment;
+    UIBarButtonItem *addButton;
+    UIBarButtonItem *removeButton;
 }
 
 @end

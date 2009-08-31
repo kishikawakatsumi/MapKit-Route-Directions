@@ -21,9 +21,10 @@
 	wayPointFields = [[NSMutableArray alloc] init];
 	
 	UIBarButtonItem *space = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
-	UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addRow:)] autorelease];
-	UIBarButtonItem *removePinButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"remove.png"] style:UIBarButtonItemStylePlain target:self action:@selector(removeRow:)] autorelease];
-	self.toolbarItems = [NSArray arrayWithObjects:space, addButton, removePinButton, nil];
+	addButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addRow:)] autorelease];
+	removeButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"remove.png"] style:UIBarButtonItemStylePlain target:self action:@selector(removeRow:)] autorelease];
+    removeButton.enabled = NO;
+	self.toolbarItems = [NSArray arrayWithObjects:space, addButton, removeButton, nil];
 	[self.navigationController setToolbarHidden:NO animated:NO];
 }
 
@@ -43,7 +44,9 @@
 
 - (void)addRow:(id)sender {
 	[wayPointFields addObject:[[[UITextField alloc] initWithFrame:CGRectMake(66.0, 0.0, 236.0, 44.0)] autorelease]];
-	[self.tableView reloadData];
+	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[wayPointFields count] inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+    
+    removeButton.enabled = YES;
 }
 
 - (void)removeRow:(id)sender {
@@ -51,7 +54,11 @@
 		return;
 	}
 	[wayPointFields removeLastObject];
-	[self.tableView reloadData];
+	[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[wayPointFields count] + 1 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+    
+    if ([wayPointFields count] == 0) {
+        removeButton.enabled = NO;
+    }
 }
 
 #pragma mark UITextFieldDelegate Methods
@@ -236,7 +243,9 @@
 		controller.endPoint = endField.text;
 		NSMutableArray *wayPoints = [NSMutableArray arrayWithCapacity:[wayPointFields count]];
 		for (UITextField *pointField in wayPointFields) {
-			[wayPoints addObject:pointField.text];
+            if ([pointField.text length] > 0) {
+                [wayPoints addObject:pointField.text];
+            }
 		}
 		controller.wayPoints = wayPoints;
 		
