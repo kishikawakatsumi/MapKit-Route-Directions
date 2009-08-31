@@ -211,7 +211,7 @@
 		
 		travelModeSegment = [[UISegmentedControl alloc] initWithItems:
 							 [NSArray arrayWithObjects:NSLocalizedString(@"Driving", nil), 
-							  NSLocalizedString(@"Train", nil), 
+							  /*NSLocalizedString(@"Train", nil), */
 							  NSLocalizedString(@"Walking", nil), nil]];
 		[travelModeSegment setFrame:CGRectMake(9.0f, 0.0f, 302.0f, 45.0f)];
 		travelModeSegment.selectedSegmentIndex = 0;
@@ -231,6 +231,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 2 && indexPath.row == 0) {
 		MapDirectionsViewController *controller = [[MapDirectionsViewController alloc] init];
+		
 		controller.startPoint = startField.text;
 		controller.endPoint = endField.text;
 		NSMutableArray *wayPoints = [NSMutableArray arrayWithCapacity:[wayPointFields count]];
@@ -238,8 +239,16 @@
 			[wayPoints addObject:pointField.text];
 		}
 		controller.wayPoints = wayPoints;
+		
+		if (travelModeSegment.selectedSegmentIndex == 0) {
+			controller.travelMode = UICGTravelModeDriving;
+		} else {
+			controller.travelMode = UICGTravelModeWalking;
+		}
+		
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];
+		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 }

@@ -17,6 +17,7 @@
 @synthesize startPoint;
 @synthesize endPoint;
 @synthesize wayPoints;
+@synthesize travelMode;
 
 - (void)dealloc {
 	[routeOverlayView release];
@@ -64,6 +65,7 @@
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
 	UICGDirectionsOptions *options = [[[UICGDirectionsOptions alloc] init] autorelease];
+	options.travelMode = travelMode;
 	if ([wayPoints count] > 0) {
 		NSArray *routePoints = [NSArray arrayWithObject:startPoint];
 		routePoints = [routePoints arrayByAddingObjectsFromArray:wayPoints];

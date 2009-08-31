@@ -19,11 +19,13 @@
 	NSString *startPoint;
 	NSString *endPoint;
 	NSArray *wayPoints;
+	UICGTravelModes travelMode;
 }
 
 @property (nonatomic, retain) NSString *startPoint;
 @property (nonatomic, retain) NSString *endPoint;
 @property (nonatomic, retain) NSArray *wayPoints;
+@property (nonatomic) UICGTravelModes travelMode;
 
 - (void)update;
 
