@@ -23,7 +23,7 @@
 	NSInteger polylineEndIndex;
 }
 
-@property (nonatomic, retain readonly) NSDictionary *dictionaryRepresentation;
+@property (nonatomic, retain, readonly) NSDictionary *dictionaryRepresentation;
 @property (nonatomic, readonly) NSInteger numerOfSteps;
 @property (nonatomic, retain, readonly) NSArray *steps;
 @property (nonatomic, retain, readonly) NSDictionary *distance;
