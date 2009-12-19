@@ -125,7 +125,7 @@
 		textLabel.textAlignment = UITextAlignmentRight;
 		textLabel.textColor = [UIColor lightGrayColor];
 		
-		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0, 0.0, 236.0, 44.0)];
+		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0, 12.0, 236.0, 22.0)];
 		inputField.delegate = self;
 		[cell addSubview:inputField];
 		[inputField release];
@@ -142,7 +142,7 @@
 		[inputField setReturnKeyType:UIReturnKeyNext];
 		[inputField setEnablesReturnKeyAutomatically:YES];
 		
-		[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+		[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom];
 		[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 		
 		[inputField setText:[NSString stringWithUTF8String:"セルリアンタワー"]];
@@ -160,7 +160,7 @@
 		textLabel.textAlignment = UITextAlignmentRight;
 		textLabel.textColor = [UIColor lightGrayColor];
 		
-		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0, 0.0, 236.0, 44.0)];
+		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0, 12.0, 236.0, 22.0)];
 		inputField.delegate = self;
 		[cell addSubview:inputField];
 		[inputField release];
