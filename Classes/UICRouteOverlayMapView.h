@@ -15,7 +15,7 @@
 	UIColor *lineColor;
 }
 
--(id) initWithMapView:(MKMapView *)mapView;
+- (id)initWithMapView:(MKMapView *)mapView;
 
 @property (nonatomic, retain) MKMapView *inMapView;
 @property (nonatomic, retain) NSArray *routes;

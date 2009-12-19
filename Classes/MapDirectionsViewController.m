@@ -22,6 +22,7 @@
 	[routeOverlayView release];
 	[startPoint release];
 	[endPoint release];
+    [wayPoints release];
     [super dealloc];
 }
 

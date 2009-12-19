@@ -44,7 +44,7 @@
 }
 
 - (void)addRow:(id)sender {
-	[wayPointFields addObject:[[[UITextField alloc] initWithFrame:CGRectMake(66.0, 0.0, 236.0, 44.0)] autorelease]];
+	[wayPointFields addObject:[[[UITextField alloc] initWithFrame:CGRectMake(66.0f, 11.0f, 236.0f, 22.0f)] autorelease]];
 	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[wayPointFields count] inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
     
     removeButton.enabled = YES;
@@ -125,7 +125,7 @@
 		textLabel.textAlignment = UITextAlignmentRight;
 		textLabel.textColor = [UIColor lightGrayColor];
 		
-		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0, 11.0, 236.0, 22.0)];
+		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0f, 11.0f, 236.0f, 22.0f)];
 		inputField.delegate = self;
 		[cell addSubview:inputField];
 		[inputField release];
@@ -160,7 +160,7 @@
 		textLabel.textAlignment = UITextAlignmentRight;
 		textLabel.textColor = [UIColor lightGrayColor];
 		
-		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0, 11.0, 236.0, 22.0)];
+		UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(66.0f, 11.0f, 236.0f, 22.0f)];
 		inputField.delegate = self;
 		[cell addSubview:inputField];
 		[inputField release];
@@ -230,7 +230,7 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		cell.textLabel.text = NSLocalizedString(@"Search", nil);
 		cell.textLabel.textAlignment = UITextAlignmentCenter;
-		cell.textLabel.textColor = [UIColor colorWithRed:0.20 green:0.30 blue:0.49 alpha:1.0];
+		cell.textLabel.textColor = [UIColor colorWithRed:0.20f green:0.30f blue:0.49f alpha:1.0f];
 	}
 	
     return cell;
