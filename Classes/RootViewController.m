@@ -12,6 +12,7 @@
 @implementation RootViewController
 
 - (void)dealloc {
+    [wayPointFields release];
     [super dealloc];
 }
 

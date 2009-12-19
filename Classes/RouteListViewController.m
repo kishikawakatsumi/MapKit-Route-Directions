@@ -69,6 +69,7 @@
 		textView.backgroundColor = [UIColor whiteColor];
 		textView.tag = 1;
 		[cell addSubview:textView];
+        [textView release];
 		
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
