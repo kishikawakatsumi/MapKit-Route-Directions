@@ -32,9 +32,8 @@
 }
 
 - (void)makeAvailable {
-	NSString *filePath = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"html"];
-	NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-	[self loadHTMLString:fileContents baseURL:[NSURL URLWithString:@"http://iphone.local/"]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"html"];
+    [self loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
 }
 
 - (void)webView:(UIWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(id)frame {

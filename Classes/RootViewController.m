@@ -211,7 +211,7 @@
 		[inputField setReturnKeyType:UIReturnKeyDone];
 		[inputField setEnablesReturnKeyAutomatically:YES];
 		
-		[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+		[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom];
 		[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 	} else if (indexPath.section == 1 && indexPath.row == 0) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -4,6 +4,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<title>Route Map</title>
 	<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=ABQIAAAAHbdppQ3MDhGeECdceHXV_hSdG0_H5fikhlv-IEqZhBC4z1KyBxR12kmbllSrnYs8N7ylVtP59PINPg"></script>
+    <script type="text/javascript" src="json2.js"></script>
 	<script type="text/javascript">
 
 	var map;
@@ -61,54 +62,13 @@
 		for (var i = 0; i < numGeocodes; i++) {
 			geocodes[i] = gdir.getGeocode(i);
 		}
-		alert({ "routes": routes,
-		        "geocodes": geocodes,
-				"distance": gdir.getDistance(),
-				"duration": gdir.getDuration(),
-		        "polyline": gdir.getPolyline(),
-		        "status": gdir.getStatus() }.toSource());
+		alert(JSON.stringify({"routes": routes,
+                              "geocodes": geocodes,
+                              "distance": gdir.getDistance(),
+                              "duration": gdir.getDuration(),
+                              "polyline": gdir.getPolyline(),
+                              "status": gdir.getStatus()}));
 	}
-	
-	(function () {
-		/* atomic objects */
-		if (!Boolean.prototype.toSource) Boolean.prototype.toSource = function () {
-			return this.toString();
-		};
-		if (!Number.prototype.toSource) Number.prototype.toSource = function () {
-			return this.toString();
-		};
-		if (!String.prototype.toSource) String.prototype.toSource = function () {
-			return '\"' + this.toString().replace(/[\\\"\']/g, function (m0) {
-				return '\\' + m0;
-			}) + '\"';
-		};
-		if (!Date.prototype.toSource) Date.prototype.toSource = function () {
-			return '(new Date(' + this.valueOf() + '))';
-		};
-		if (!RegExp.prototype.toSource) RegExp.prototype.toSource = function () {
-			return this.toString();
-		};
-		/* and built-ins */
-		if (!Function.prototype.toSource) Function.prototype.toSource = function () {
-			return this.toString();
-		}
-		if (!Array.prototype.toSource) Array.prototype.toSource = function () {
-			var src = [];
-			for (var i = 0, l = this.length; i < l; i++) {
-				src[i] = this[i].toSource();
-			}
-			return '[' + src.toString() + ']';
-		};
-		if (!Object.prototype.toSource) Object.prototype.toSource = function () {
-			var src = []; // a-ha!
-			for (var p in this) {
-				if (!this.hasOwnProperty(p)) continue;
-				src[src.length] = p.toSource() + ':' + (this[p] ? this[p].toSource() : this[p] === undefined ? 'undefined' : 'null');
-			} // parens needed to make eval() happy
-			return '{' + src.toString() + '}';
-		};
-	})();
-
 	</script>
 	</head>
 	<body onload="initialize()" onunload="GUnload()">

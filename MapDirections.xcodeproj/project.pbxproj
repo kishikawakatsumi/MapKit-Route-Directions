@@ -34,6 +34,7 @@
 		14C885E41031D50A00079F9E /* UICGClientGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C885E31031D50A00079F9E /* UICGClientGeocoder.m */; };
 		14C8878F1031EE0800079F9E /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C8878E1031EE0800079F9E /* add.png */; };
 		14C887911031EE4D00079F9E /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C887901031EE4D00079F9E /* remove.png */; };
+		14F7E03011020DB400D74BF0 /* json2.js in Resources */ = {isa = PBXBuildFile; fileRef = 14F7E02F11020DB400D74BF0 /* json2.js */; };
 		1D3623260D0F684500981E51 /* MapDirectionsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapDirectionsAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -90,6 +91,7 @@
 		14C885E31031D50A00079F9E /* UICGClientGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICGClientGeocoder.m; sourceTree = "<group>"; };
 		14C8878E1031EE0800079F9E /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		14C887901031EE4D00079F9E /* remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = remove.png; sourceTree = "<group>"; };
+		14F7E02F11020DB400D74BF0 /* json2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json2.js; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapDirectionsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapDirectionsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapDirectionsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapDirectionsAppDelegate.m; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MapDirections-Info.plist */,
 				14C87D94102F260A00079F9E /* api.html */,
+				14F7E02F11020DB400D74BF0 /* json2.js */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */,
 				14C87D95102F260A00079F9E /* api.html in Resources */,
+				14F7E03011020DB400D74BF0 /* json2.js in Resources */,
 				14C883A31031A79300079F9E /* Icon.png in Resources */,
 				14C883DE1031AF7700079F9E /* reticle.png in Resources */,
 				14C883E21031AF9500079F9E /* map_pin.png in Resources */,
