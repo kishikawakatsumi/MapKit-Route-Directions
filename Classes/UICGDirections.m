@@ -34,7 +34,7 @@ static UICGDirections *sharedDirections;
 	self = [super init];
 	if (self != nil) {
 		googleMapsAPI = [[UICGoogleMapsAPI alloc] init];
-		googleMapsAPI.delegate =self;
+		googleMapsAPI.delegate = self;
 	}
 	return self;
 }

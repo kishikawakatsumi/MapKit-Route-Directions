@@ -30,7 +30,8 @@
 	self = [super init];
 	if (self != nil) {
 		dictionaryRepresentation = [dictionary retain];
-		NSDictionary *k = [dictionaryRepresentation objectForKey:@"j"];
+        NSArray *allKeys = [dictionaryRepresentation allKeys];
+        NSDictionary *k = [dictionaryRepresentation objectForKey:[allKeys objectAtIndex:[allKeys count] - 1]];
 		NSArray *stepDics = [k objectForKey:@"Steps"];
 		numerOfSteps = [stepDics count];
 		steps = [[NSMutableArray alloc] initWithCapacity:numerOfSteps];
