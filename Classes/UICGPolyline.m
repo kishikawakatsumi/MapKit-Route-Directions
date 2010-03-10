@@ -24,8 +24,8 @@
 	self = [super init];
 	if (self != nil) {
 		dictionaryRepresentation = [dictionary retain];
-		
-        vertices = [[dictionaryRepresentation objectForKey:@"k"] retain];
+        
+        vertices = [[dictionaryRepresentation objectForKey:@"k"] ? [dictionaryRepresentation objectForKey:@"k"] : [dictionaryRepresentation objectForKey:@"g"] retain];
 		vertexCount = [vertices count];
 		routePoints = [NSMutableArray arrayWithCapacity:vertexCount];
 		for (NSDictionary *vertex in vertices) {
