@@ -25,8 +25,17 @@
 	if (self != nil) {
 		dictionaryRepresentation = [dictionary retain];
         
-        vertices = [[dictionaryRepresentation objectForKey:@"k"] ? [dictionaryRepresentation objectForKey:@"k"] : [dictionaryRepresentation objectForKey:@"g"] retain];
-		vertexCount = [vertices count];
+        if (!vertices || (NSNull *)vertices == [NSNull null]) {
+            vertices = [[dictionaryRepresentation objectForKey:@"k"] retain];
+        }
+        if (!vertices || (NSNull *)vertices == [NSNull null]) {
+            vertices = [[dictionaryRepresentation objectForKey:@"g"] retain];
+        }
+        if (!vertices || (NSNull *)vertices == [NSNull null]) {
+            vertices = [[dictionaryRepresentation objectForKey:@"j"] retain];
+        }
+        
+        vertexCount = [vertices count];
 		routePoints = [NSMutableArray arrayWithCapacity:vertexCount];
 		for (NSDictionary *vertex in vertices) {
 			CLLocationDegrees latitude  = [[vertex objectForKey:@"y"] doubleValue];
