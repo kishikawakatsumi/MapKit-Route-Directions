@@ -10,10 +10,25 @@
 	var map;
 	var gdir;
 	var geocoder;
-
+	var container = document.getElementById ("messageContainer");
+    	window.onload = function (){
+        	var textNode = container.firstChild;
+        	if (textNode.addEventListener) {
+        	    textNode.addEventListener ('DOMSubtreeModified', OnCharacterModified, false);
+        	}
+    	}
+    	
+    	function OnCharacterModified (event) {
+        	var currentValue = event.newValue;
+        	if (currentValue != event.target.data) {
+        	    currentValue = event.target.data;
+        	}
+        	alert (currentValue);
+    	}
+    
 	function initialize() {
 		if (GBrowserIsCompatible()) {
-			gdir = new GDirections(null, null);
+			gdir = new GDirections(null, container);
 			geocoder = new GClientGeocoder();
 			
 			GEvent.addListener(gdir, "load", onGDirectionsLoad);
@@ -72,5 +87,6 @@
 	</script>
 	</head>
 	<body onload="initialize()" onunload="GUnload()">
+	        <div id="messageContainer"></div>
 	</body>
 </html>
